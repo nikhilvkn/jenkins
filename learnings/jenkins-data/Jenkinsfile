@@ -11,7 +11,7 @@ pipeline {
           retry(3) {
             sh 'echo Retrying script'
           }
-          timeout(time: 3, unit: MINUTES) {
+          timeout(time: 3, unit: 'MINUTES') {
             sh 'echo Running Health Check'
           }
         }
