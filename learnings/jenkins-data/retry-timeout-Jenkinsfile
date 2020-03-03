@@ -1,0 +1,20 @@
+pipeline {
+    agent { label 'master' }
+    stages {
+      stage ('Gathering') {
+        steps {
+          sh 'echo Gathering facts about deployment'
+          }
+        }
+      stage ('Deploy') {
+        steps {
+          retry(3) {
+            sh 'echo Retrying script'
+          }
+          timeout(time: 3, unit: 'MINUTES') {
+            sh 'echo Running Health Check'
+          }
+        }
+      }
+    }
+  }

@@ -1,20 +1,16 @@
 pipeline {
-    agent { label 'master' }
+    agent { docker "java" }
     stages {
-      stage ('Gathering') {
-        steps {
-          sh 'echo Gathering facts about deployment'
-          }
+        stage("build") {
+            steps {
+                sh 'mvn clean install -Dmaven.test.failure.ignore=true'
+            }
         }
-      stage ('Deploy') {
-        steps {
-          retry(3) {
-            sh 'echo Retrying script'
-          }
-          timeout(time: 3, unit: 'MINUTES') {
-            sh 'echo Running Health Check'
-          }
-        }
-      }
     }
-  }
+    post {
+        always {
+            archive "target/**/*"
+            junit 'target/surefire-reports/*.xml'
+        }
+    }
+}
