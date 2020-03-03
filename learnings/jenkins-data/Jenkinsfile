@@ -4,8 +4,8 @@ pipeline {
       stage ('Gathering') {
         steps {
           sh 'echo Gathering facts about deployment'
+          }
         }
-      }
       stage ('Deploy') {
         steps {
           retry(3) {
@@ -17,3 +17,4 @@ pipeline {
         }
       }
     }
+  }
