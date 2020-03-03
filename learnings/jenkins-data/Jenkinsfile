@@ -1,7 +1,5 @@
 pipeline {
-    agents {
-      label 'master'
-    }
+    agents { label 'master' }
     stages {
       stage ('Gathering') {
         steps {
@@ -19,4 +17,3 @@ pipeline {
         }
       }
     }
-}
